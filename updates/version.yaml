@@ -1,0 +1,5 @@
+1.0.1:
+    - First version of SunLab.Permissions
+    - create_permissions_table.php
+    - create_permissions_users_table.php
+    - create_groups_permissions_table.php

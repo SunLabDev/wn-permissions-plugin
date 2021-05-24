@@ -1,0 +1,27 @@
+{
+    "name": "sunlab/wn-permissions-plugin",
+    "type": "winter-plugin",
+    "description": "Frontend User's permissions plugin for WinterCMS",
+    "homepage": "https://github.com/sunlabdev/wn-permissions-plugin",
+    "keywords": ["winter cms", "winter", "plugin", "permissions"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Romain 'Maz' B",
+            "email": "romainmazb@gmail.com",
+            "role": "Original Author"
+        }
+    ],
+    "support": {
+        "issues": "https://github.com/sunlabdev/wn-permissions-plugin/issues",
+        "source": "https://github.com/sunlabdev/wn-permissions-plugin"
+    },
+    "require": {
+        "php": ">=7.0",
+        "composer/installers": "~1.0",
+        "winter/wn-user-plugin": "dev-main"
+    },
+    "extra": {
+        "installer-name": "permissions"
+    }
+}

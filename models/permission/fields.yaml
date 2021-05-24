@@ -1,0 +1,17 @@
+fields:
+    name:
+        label: sunlab.permissions::lang.permission.fields.name
+        span: left
+
+    code:
+        label: sunlab.permissions::lang.permission.fields.code
+        span: right
+        preset:
+            field: name
+
+    description:
+        label: sunlab.permissions::lang.permission.fields.desc
+        type: textarea
+        size: tiny
+        attributes:
+            maxlength: 191
