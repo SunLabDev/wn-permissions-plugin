@@ -10,9 +10,9 @@ class CreateGroupsPermissionsTable extends Migration
     {
         Schema::create('sunlab_permissions_groups_permissions', static function (Blueprint $table) {
             $table->engine = 'InnoDB';
-            $table->unsignedInteger('group_id');
+            $table->unsignedInteger('user_group_id');
             $table->unsignedInteger('permission_id');
-            $table->primary(['group_id', 'permission_id'], 'group_permission_id');
+            $table->primary(['user_group_id', 'permission_id']);
             $table->timestamps();
         });
     }
