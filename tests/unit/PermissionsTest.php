@@ -6,22 +6,37 @@ class PermissionsTest extends PermissionsPluginTestCase
 {
     public function testUserHasPermission()
     {
-        $this->user->permissions()->attach($this->permission);
+        $this->user->permissions()->attach($this->permission->id);
 
-        $this->assertTrue($this->user->userHasPermission('base-permission'));
+        $this->assertTrue($this->user->userHasPermission($this->permission->code));
     }
 
     public function testUserHasMultiplePermissions()
     {
-        $this->user->permissions()->attach($this->permission);
+        $this->user->permissions()->attach([$this->permission->id, $this->permission2->id]);
 
-        $this->assertTrue($this->user->userHasPermission(['base-permission', 'base-permission-2']));
+        $this->assertTrue($this->user->userHasPermission([$this->permission->code, $this->permission2->code]));
     }
 
     public function testUserHasAtLeastOnePermission()
     {
-        $this->user->permissions()->attach($this->permission);
+        $this->user->permissions()->attach($this->permission->id);
 
-        $this->assertTrue($this->user->userHasPermission(['base-permission', 'base-permission-2'], 'one'));
+        $this->assertTrue($this->user->userHasPermission([$this->permission->code, $this->permission2->code], 'one'));
+    }
+
+    public function testUserHasPermissionsAtAGroupLevel()
+    {
+        $this->user->groups()->first()->permissions()->attach($this->permission->id);
+
+        $this->assertTrue($this->user->userHasPermission($this->permission->code));
+    }
+
+    public function testPermissionsCanBeMixedBetweenUserAndGroupLevel()
+    {
+        $this->user->groups()->first()->permissions()->attach($this->permission->id);
+        $this->user->attach($this->permission2->id);
+
+        $this->assertTrue($this->user->userHasPermission([$this->permission->code, $this->permission2->code]));
     }
 }
