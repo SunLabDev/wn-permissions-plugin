@@ -22,7 +22,7 @@ abstract class PermissionsPluginTestCase extends PluginTestCase
             'email' => 'user@user.com',
             'password' => 'abcd1234',
             'password_confirmation' => 'abcd1234'
-        ]);
+        ], true);
 
         // Create base permission models for the tests
         $this->permission = new Permission;
