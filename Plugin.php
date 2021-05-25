@@ -1,6 +1,5 @@
 <?php namespace SunLab\Permissions;
 
-use Backend\Classes\Controller;
 use Backend\Facades\Backend;
 use Backend\Widgets\Form;
 use http\Exception\InvalidArgumentException;
@@ -10,7 +9,6 @@ use Winter\Storm\Database\Model;
 use Winter\Storm\Support\Facades\Event;
 use Winter\User\Models\User;
 use Winter\User\Models\UserGroup;
-use Backend\FormWidgets\PermissionEditor;
 
 class Plugin extends \System\Classes\PluginBase
 {
@@ -74,10 +72,7 @@ class Plugin extends \System\Classes\PluginBase
     protected function extendUserModel()
     {
         User::extend(function ($model) {
-            $model->belongsToMany['permissions'] = [
-                \SunLab\Permissions\Models\Permission::class,
-                'table' => 'sunlab_permissions_permissions_users',
-            ];
+            $this->addPermissionsRelationTo($model);
 
             $model->addDynamicMethod(
                 'userHasPermission',
@@ -131,10 +126,7 @@ class Plugin extends \System\Classes\PluginBase
     protected function extendUserGroupModel()
     {
         UserGroup::extend(function ($model) {
-            $model->belongsToMany['permissions'] = [
-                \SunLab\Permissions\Models\Permission::class,
-                'table' => 'sunlab_permissions_groups_permissions'
-            ];
+            $this->addPermissionsRelationTo($model);
         });
     }
 
@@ -177,5 +169,13 @@ class Plugin extends \System\Classes\PluginBase
                 ]
             ]);
         });
+    }
+
+    protected function addPermissionsRelationTo($model)
+    {
+        $model->belongsToMany['permissions'] = [
+            \SunLab\Permissions\Models\Permission::class,
+            'table' => 'sunlab_permissions_permissions_users',
+        ];
     }
 }
