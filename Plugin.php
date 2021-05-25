@@ -2,6 +2,9 @@
 
 use Backend\Facades\Backend;
 use Backend\Facades\BackendAuth;
+use http\Exception\InvalidArgumentException;
+use SunLab\Permissions\Models\Permission;
+use Winter\Storm\Database\Builder;
 use Winter\Storm\Support\Facades\Event;
 use Winter\User\Models\User;
 use Winter\User\Models\UserGroup;
@@ -72,6 +75,53 @@ class Plugin extends \System\Classes\PluginBase
                 \SunLab\Permissions\Models\Permission::class,
                 'table' => 'sunlab_permissions_permissions_users',
             ];
+
+            $model->addDynamicMethod(
+                'userHasPermission',
+                function ($neededPermissions, string $oneOrAll = 'all') use ($model) {
+                    if (!in_array($oneOrAll, ['one', 'all'])) {
+                        throw new InvalidArgumentException(
+                            "Second argument of userHasPermission method should be 'one' or 'all'"
+                        );
+                    }
+
+                    if (!$model->is_activated) {
+                        return false;
+                    }
+
+                    $verifyPermission = static function ($grantedPermissions, $neededPermissions, $oneOrAll) {
+                        return
+                            ($oneOrAll === 'one' && $grantedPermissions->isNotEmpty())
+                            ||
+                            ($oneOrAll === 'all' && count($grantedPermissions) === count($neededPermissions));
+                    };
+
+                    $neededPermissions = (array)$neededPermissions;
+
+                    $grantedPermissions = $model->permissions()->whereIn('code', $neededPermissions)->get();
+
+                    // If the user got all the needed permission at his user-level, return true
+                    if ($verifyPermission($grantedPermissions, $neededPermissions, $oneOrAll)) {
+                        return true;
+                    }
+
+                    // If not, merge all the user's groups' permissions and re-verify again
+                    $userGroupsId = $model->groups()->get()->pluck('id');
+
+                    $grantedPermissions = $grantedPermissions->merge(
+                        Permission::query()
+                                  ->whereHas(
+                                      'groups',
+                                      static function (Builder $query) use ($userGroupsId) {
+                                        return $query->whereIn('user_group_id', $userGroupsId);
+                                      }
+                                  )
+                                  ->get()
+                    )->unique('code');
+
+                    return $verifyPermission($grantedPermissions, $neededPermissions, $oneOrAll);
+                }
+            );
         });
     }
 
