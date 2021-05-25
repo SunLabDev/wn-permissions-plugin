@@ -160,11 +160,17 @@ class Plugin extends \System\Classes\PluginBase
                 return;
             }
 
+            $permissionName = sprintf(
+                'sunlab.permissions.access_%s_permissions',
+                strtolower(class_basename($modelClass))
+            );
+
             $widget->addTabFields([
                 'permissions' => [
                     'tab'   => 'sunlab.permissions::lang.permissions.menu_label',
                     'type'    => \SunLab\Permissions\FormWidgets\PermissionEditor::class,
                     'mode' => 'checkbox',
+                    'permissions' => $permissionName,
                     'availablePermissions' => Permission::query()->get()
                 ]
             ]);
