@@ -23,7 +23,7 @@ return [
             'code' => 'Code',
             'code_comment' => 'Lasse Feld leer, um Code automatisch aus dem Namen zu generieren.',
             'name' => 'Name',
-            'desc' => 'Beschreibung',
+            'comment' => 'Beschreibung',
         ],
         'delete_permission' => 'Berechtigung löschen',
     ],

@@ -1,0 +1,19 @@
+# ===================================
+#  List Behavior Config
+# ===================================
+
+title: sunlab.permissions::lang.permissions.menu_label
+list: ~/plugins/sunlab/permissions/models/permission/columns.yaml
+modelClass: SunLab\Permissions\Models\Permission
+recordUrl: sunlab/permissions/permissions/update/:id
+
+noRecordsMessage: backend::lang.list.no_records
+
+recordsPerPage: 20
+
+showSetup: true
+
+toolbar:
+    buttons: list_toolbar
+    search:
+        prompt: backend::lang.list.search_prompt

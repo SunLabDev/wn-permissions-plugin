@@ -23,7 +23,7 @@ return [
             'code' => 'Code',
             'code_comment' => 'Auto-generated from "Name" field if left empty.',
             'name' => 'Name',
-            'desc' => 'Description',
+            'comment' => 'Description',
         ],
         'delete_permission' => 'Delete Permission',
     ],

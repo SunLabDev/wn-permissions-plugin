@@ -1,6 +1,6 @@
 fields:
-    name:
-        label: sunlab.permissions::lang.permission.fields.name
+    label:
+        label: sunlab.permissions::lang.permission.fields.label
         span: left
 
     code:
@@ -9,9 +9,16 @@ fields:
         preset:
             field: name
 
-    description:
-        label: sunlab.permissions::lang.permission.fields.desc
+    tab:
+        label: sunlab.permissions::lang.permission.fields.tab
+        span: left
+        type: dropdown
+        allowCustom: true
+
+    comment:
+        label: sunlab.permissions::lang.permission.fields.comment
         type: textarea
+        span: right
         size: tiny
         attributes:
             maxlength: 191

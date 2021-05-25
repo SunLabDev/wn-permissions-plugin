@@ -11,9 +11,10 @@ class CreatePermissionsTable extends Migration
         Schema::create('sunlab_permissions_permissions', static function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->increments('id');
-            $table->string('code')->unique();
-            $table->string('name')->nullable();
-            $table->string('description')->nullable();
+            $table->string('code');
+            $table->string('label');
+            $table->string('comment')->nullable();
+            $table->string('tab');
             $table->timestamps();
         });
     }

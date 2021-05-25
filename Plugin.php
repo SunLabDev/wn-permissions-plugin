@@ -1,13 +1,16 @@
 <?php namespace SunLab\Permissions;
 
+use Backend\Classes\Controller;
 use Backend\Facades\Backend;
-use Backend\Facades\BackendAuth;
+use Backend\Widgets\Form;
 use http\Exception\InvalidArgumentException;
 use SunLab\Permissions\Models\Permission;
 use Winter\Storm\Database\Builder;
+use Winter\Storm\Database\Model;
 use Winter\Storm\Support\Facades\Event;
 use Winter\User\Models\User;
 use Winter\User\Models\UserGroup;
+use Backend\FormWidgets\PermissionEditor;
 
 class Plugin extends \System\Classes\PluginBase
 {
@@ -32,8 +35,8 @@ class Plugin extends \System\Classes\PluginBase
         $this->extendWinterUserSideMenu();
         $this->extendUserModel();
         $this->extendUserGroupModel();
-//        $this->extendUserController();
-//        $this->extendUserGroupController();
+        $this->extendPermissionController('User');
+        $this->extendPermissionController('UserGroup');
     }
 
     public function registerPermissions()
@@ -135,45 +138,42 @@ class Plugin extends \System\Classes\PluginBase
         });
     }
 
-    protected function extendUserController()
+    protected function extendPermissionController(string $modelClassName)
     {
-        Event::listen('backend.form.extendFields', function ($widget) {
+        $controllerClass = sprintf('\Winter\User\Controllers\%ss', $modelClassName);
 
-            if (!$widget->getController() instanceof \Winter\User\Controllers\Users) {
-                return;
-            }
+        /* @var Model $modelClass */
+        $modelClass = sprintf('\Winter\User\Models\%s', $modelClassName);
 
-            if (!$widget->model instanceof \Winter\User\Models\User) {
-                return;
-            }
+        $modelClass::extend(static function ($model) use ($modelClassName) {
+            $model->bindEvent('model.afterSave', static function () use ($modelClassName, $model) {
+                if (!app()->runningInBackend()) {
+                    return;
+                }
 
-            $widget->addTabFields([
-                'user_permissions' => [
-                    'tab'   => 'sunlab.permissions::lang.permissions.menu_label',
-                    'type'    => 'userpermissioneditor',
-                    'permissions' => ['sunlab.permissions.access_user_permissions']
-                ]
-            ]);
+                $permissionsChecked =
+                    Permission::query()
+                        ->select('id')
+                        ->whereIn('code', array_keys(post($modelClassName . '.permissions')))
+                        ->pluck('id');
+
+                $model->permissions()->sync($permissionsChecked);
+            });
         });
-    }
 
-    protected function extendUserGroupController()
-    {
-        Event::listen('backend.form.extendFields', function ($widget) {
-
-            if (!$widget->getController() instanceof \Winter\User\Controllers\UserGroups) {
-                return;
-            }
-
-            if (!$widget->model instanceof \Winter\User\Models\UserGroup) {
+        Event::listen('backend.form.extendFields', static function (Form $widget) use ($controllerClass, $modelClass) {
+            if (!$widget->getController() instanceof $controllerClass
+                ||
+                !$widget->model instanceof $modelClass) {
                 return;
             }
 
             $widget->addTabFields([
-                'user_permissions' => [
+                'permissions' => [
                     'tab'   => 'sunlab.permissions::lang.permissions.menu_label',
-                    'type'    => 'userpermissioneditor',
-                    'permissions' => ['sunlab.permissions.access_user_permissions']
+                    'type'    => \SunLab\Permissions\FormWidgets\PermissionEditor::class,
+                    'mode' => 'checkbox',
+                    'availablePermissions' => Permission::query()->get()
                 ]
             ]);
         });

@@ -11,8 +11,9 @@ class Permission extends Model
     protected $table = 'sunlab_permissions_permissions';
 
     public $rules = [
-        'name' => 'required',
-        'code' => 'required'
+        'label' => 'required',
+        'code' => 'required',
+        'tab' => 'required'
     ];
 
     public $belongsToMany = [
@@ -27,4 +28,12 @@ class Permission extends Model
             'table' => 'sunlab_permissions_groups_permissions'
         ],
     ];
+
+    public function getTabOptions()
+    {
+        return self::query()
+                   ->select('tab')
+                   ->get()
+                   ->pluck('tab', 'tab');
+    }
 }
