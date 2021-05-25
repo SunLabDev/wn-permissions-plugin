@@ -32,30 +32,31 @@ Since every user model is now extended with the `hasUserPermission` method,
 it is available in both twig and backend php i.e.
 
 **For Twig**
+```twig
+{% if user.hasUserPermission(['can-eat-cake', 'can-take-cheese']) %}
+    <p>This user has all above permissions</p>
+{% else %}
+    <p>This user does not have permission</p>
+{% endif %}
 
-    {% if user.hasUserPermission(['can-eat-cake', 'can-take-cheese']) %}
-        <p>This user has all above permissions</p>
-    {% else %}
-        <p>This user does not have permission</p>
-    {% endif %}
-
-    {% if user.hasUserPermission(['can-eat-cake', 'can-take-cheese'], 'one') %}
-        <p>This user has one of the above permissions</p>
-    {% else %}
-        <p>This user does not have permission</p>
-    {% endif %}
+{% if user.hasUserPermission(['can-eat-cake', 'can-take-cheese'], 'one') %}
+    <p>This user has one of the above permissions</p>
+{% else %}
+    <p>This user does not have permission</p>
+{% endif %}
+```
 
 **For Backend**
+```php
+if ($user->hasUserPermission(['can-eat-cake', 'can-take-cheese'])) {
+    // This user has all above permissions
+} else {
+    // This user does not have permission
+}
 
-    if($user->hasUserPermission(['can-eat-cake', 'can-take-cheese'])) {
-        // This user has all above permissions
-    } else {
-        // This user does not have permission
-    }
-
-    if($user->hasUserPermission(['can-eat-cake', 'can-take-cheese'], 'one')) {
-        // This user has one of the above permissions
-    } else {
-        // This user does not have permission
-    }
-
+if ($user->hasUserPermission(['can-eat-cake', 'can-take-cheese'], 'one')) {
+    // This user has one of the above permissions
+} else {
+    // This user does not have permission
+}
+```
