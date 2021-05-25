@@ -1,12 +1,17 @@
-# UserPermissions Plugin
+## Permissions
 
 Front-end user permissions management.
 
-## Requirements
+### Composer installation
+```terminal
+composer require sunlab/wn-permissions-plugin
+```
+
+### Requirements
 
 This plugin requires the [Winter.User](https://github.com/wintercms/wn-user-plugin) Plugin.
 
-## Creating Permissions
+### Creating Permissions
 
 In the backend, navigate to Winter "Users" menu, on the left side there should
 be an open lock icon with the name "Permissions". Click this, and it will take you
@@ -15,18 +20,18 @@ to the list of permission.
 permission you would like to create.
 - Click on a permission in the list to manage existing permissions.
 
-## Managing User Permissions
+### Managing User Permissions
 
 In the backend, navigate to Winter "Users" menu, now on a User model updating page,
 you can manage his permission at his user-level.
 
-## Managing Group Permissions
+### Managing Group Permissions
 
 In the backend, navigate to Winter "Users" menu, into the side menu, select `Groups`.
 Now on a `Group` model updating page,
 you can manage the permissions that will be granted for every `User` in that group.
 
-## Using UserPermissions in your own development
+### Using Permissions in your own development
 
 Since every user model is now extended with the `hasUserPermission` method,
 it is available in both twig and backend php i.e.
