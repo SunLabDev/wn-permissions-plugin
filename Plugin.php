@@ -75,11 +75,11 @@ class Plugin extends \System\Classes\PluginBase
             $this->addPermissionsRelationTo($model);
 
             $model->addDynamicMethod(
-                'userHasPermission',
+                'hasUserPermission',
                 function ($neededPermissions, string $oneOrAll = 'all') use ($model) {
                     if (!in_array($oneOrAll, ['one', 'all'])) {
                         throw new InvalidArgumentException(
-                            "Second argument of userHasPermission method should be 'one' or 'all'"
+                            "Second argument of hasUserPermission method should be 'one' or 'all'"
                         );
                     }
 

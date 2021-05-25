@@ -9,64 +9,64 @@ class PermissionsTest extends PermissionsPluginTestCase
     {
         $permissionsNeeded = $this->permission->code;
 
-        $this->assertFalse($this->user->userHasPermission($permissionsNeeded));
+        $this->assertFalse($this->user->hasUserPermission($permissionsNeeded));
         $this->user->permissions()->attach($this->permission->id);
 
         Db::flushDuplicateCache();
 
-        $this->assertTrue($this->user->userHasPermission($permissionsNeeded));
+        $this->assertTrue($this->user->hasUserPermission($permissionsNeeded));
     }
 
     public function testUserHasMultiplePermissions()
     {
         $permissionsNeeded = [$this->permission->code, $this->permission2->code];
 
-        $this->assertFalse($this->user->userHasPermission($permissionsNeeded));
+        $this->assertFalse($this->user->hasUserPermission($permissionsNeeded));
 
         $this->user->permissions()->attach([$this->permission->id, $this->permission2->id]);
 
         Db::flushDuplicateCache();
 
-        $this->assertTrue($this->user->userHasPermission($permissionsNeeded));
+        $this->assertTrue($this->user->hasUserPermission($permissionsNeeded));
     }
 
     public function testUserHasAtLeastOnePermission()
     {
         $permissionsNeeded = [$this->permission->code, $this->permission2->code];
 
-        $this->assertFalse($this->user->userHasPermission($permissionsNeeded));
+        $this->assertFalse($this->user->hasUserPermission($permissionsNeeded));
 
         $this->user->permissions()->attach($this->permission->id);
 
         Db::flushDuplicateCache();
 
-        $this->assertTrue($this->user->userHasPermission($permissionsNeeded, 'one'));
+        $this->assertTrue($this->user->hasUserPermission($permissionsNeeded, 'one'));
     }
 
     public function testUserHasPermissionsAtAGroupLevel()
     {
         $permissionsNeeded = $this->permission->code;
 
-        $this->assertFalse($this->user->userHasPermission($permissionsNeeded));
+        $this->assertFalse($this->user->hasUserPermission($permissionsNeeded));
 
         $this->user->groups()->first()->permissions()->attach($this->permission->id);
 
         Db::flushDuplicateCache();
 
-        $this->assertTrue($this->user->userHasPermission($permissionsNeeded));
+        $this->assertTrue($this->user->hasUserPermission($permissionsNeeded));
     }
 
     public function testPermissionsCanBeMixedBetweenUserAndGroupLevel()
     {
         $permissionsNeeded = [$this->permission->code, $this->permission2->code];
 
-        $this->assertFalse($this->user->userHasPermission($permissionsNeeded));
+        $this->assertFalse($this->user->hasUserPermission($permissionsNeeded));
 
         $this->user->groups()->first()->permissions()->attach($this->permission->id);
         $this->user->permissions()->attach($this->permission2->id);
 
         Db::flushDuplicateCache();
 
-        $this->assertTrue($this->user->userHasPermission($permissionsNeeded));
+        $this->assertTrue($this->user->hasUserPermission($permissionsNeeded));
     }
 }
