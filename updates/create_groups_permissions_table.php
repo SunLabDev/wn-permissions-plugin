@@ -12,7 +12,7 @@ class CreateGroupsPermissionsTable extends Migration
             $table->engine = 'InnoDB';
             $table->unsignedInteger('user_group_id');
             $table->unsignedInteger('permission_id');
-            $table->primary(['user_group_id', 'permission_id']);
+            $table->primary(['user_group_id', 'permission_id'], 'groups_permissions_primary');
             $table->timestamps();
         });
     }

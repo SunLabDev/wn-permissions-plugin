@@ -12,7 +12,7 @@ class CreatePermissionsUsersTable extends Migration
             $table->engine = 'InnoDB';
             $table->unsignedInteger('user_id');
             $table->unsignedInteger('permission_id');
-            $table->primary(['user_id', 'permission_id']);
+            $table->primary(['user_id', 'permission_id'], 'permissions_users_primary');
             $table->timestamps();
         });
     }
