@@ -30,13 +30,15 @@ abstract class PermissionsPluginTestCase extends PluginTestCase
 
         // Create base permission models for the tests
         $this->permission = new Permission;
-        $this->permission->name = 'Base permission';
+        $this->permission->label = 'Base permission';
         $this->permission->code = 'base-permission';
+        $this->permission->tab = 'tab';
         $this->permission->save();
 
         $this->permission2 = new Permission;
-        $this->permission2->name = 'Base permission2';
+        $this->permission2->label = 'Base permission2';
         $this->permission2->code = 'base-permission-2';
+        $this->permission2->tab = 'tab';
         $this->permission2->save();
     }
 }
