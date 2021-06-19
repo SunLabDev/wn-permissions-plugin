@@ -149,10 +149,15 @@ class Plugin extends \System\Classes\PluginBase
                     return;
                 }
 
+                $modelPermissions = post($modelClassName . '.permissions');
+                if (!$modelPermissions) {
+                    return;
+                }
+
                 $permissionsChecked =
                     Permission::query()
                         ->select('id')
-                        ->whereIn('code', array_keys(post($modelClassName . '.permissions')))
+                        ->whereIn('code', array_keys($modelPermissions))
                         ->pluck('id');
 
                 $model->permissions()->sync($permissionsChecked);
