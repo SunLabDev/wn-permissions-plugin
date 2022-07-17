@@ -1,6 +1,6 @@
 <?php namespace SunLab\Permissions\Tests;
 
-use PluginTestCase;
+use System\Tests\Bootstrap\PluginTestCase;
 use SunLab\Permissions\Models\Permission;
 use Winter\User\Facades\Auth;
 use Winter\User\Models\UserGroup;
