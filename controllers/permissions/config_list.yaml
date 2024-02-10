@@ -2,7 +2,7 @@
 #  List Behavior Config
 # ===================================
 
-title: sunlab.permissions::lang.permissions.menu_label
+title: sunlab.permissions::lang.models.permission.label_plural
 list: ~/plugins/sunlab/permissions/models/permission/columns.yaml
 modelClass: SunLab\Permissions\Models\Permission
 recordUrl: sunlab/permissions/permissions/update/:id

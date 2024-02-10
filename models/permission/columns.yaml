@@ -1,17 +1,17 @@
 columns:
     code:
-        label: sunlab.permissions::lang.permission.fields.code
+        label: sunlab.permissions::lang.models.permission.code
         type: text
         width: 30%
         searchable: true
 
-    name:
-        label: sunlab.permissions::lang.permission.fields.name
+    label:
+        label: sunlab.permissions::lang.models.permission.label
         type: text
         width: 30%
         searchable: true
 
-    description:
-        label: sunlab.permissions::lang.permission.fields.desc
+    comment:
+        label: sunlab.permissions::lang.models.permission.comment
         type: text
         width: 40%

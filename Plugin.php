@@ -41,16 +41,16 @@ class Plugin extends \System\Classes\PluginBase
     {
         return [
             'sunlab.permissions.access_permissions' => [
-                'tab'   => 'sunlab.permissions::lang.plugin.tab',
-                'label' => 'sunlab.permissions::lang.plugin.access_permissions'
+                'tab'   => 'sunlab.permissions::lang.permissions.tab',
+                'label' => 'sunlab.permissions::lang.permissions.access_permissions'
             ],
             'sunlab.permissions.access_user_permissions' => [
-                'tab'   => 'sunlab.permissions::lang.plugin.tab',
-                'label' => 'sunlab.permissions::lang.plugin.access_user_permissions'
+                'tab'   => 'sunlab.permissions::lang.permissions.tab',
+                'label' => 'sunlab.permissions::lang.permissions.access_user_permissions'
             ],
             'sunlab.permissions.access_group_permissions' => [
-                'tab'   => 'sunlab.permissions::lang.plugin.tab',
-                'label' => 'sunlab.permissions::lang.plugin.access_group_permissions'
+                'tab'   => 'sunlab.permissions::lang.permissions.tab',
+                'label' => 'sunlab.permissions::lang.permissions.access_group_permissions'
             ],
         ];
     }
@@ -60,7 +60,7 @@ class Plugin extends \System\Classes\PluginBase
         Event::listen('backend.menu.extendItems', static function ($manager) {
             $manager->addSideMenuItems('Winter.User', 'user', [
                 'permissions' => [
-                    'label' => 'sunlab.permissions::lang.permissions.menu_label',
+                    'label' => 'sunlab.permissions::lang.controllers.users.menu_label',
                     'icon' => 'icon-unlock-alt',
                     'permissions' => ['sunlab.permissions.access_permissions'],
                     'url' => Backend::url('sunlab/permissions/permissions'),
@@ -178,7 +178,7 @@ class Plugin extends \System\Classes\PluginBase
 
             $widget->addTabFields([
                 'permissions' => [
-                    'tab'   => 'sunlab.permissions::lang.permissions.menu_label',
+                    'tab'   => 'sunlab.permissions::lang.controllers.users.tab',
                     'type'    => \SunLab\Permissions\FormWidgets\PermissionEditor::class,
                     'mode' => 'checkbox',
                     'permissions' => $permissionName,

@@ -3,3 +3,9 @@
     - create_permissions_table.php
     - create_permissions_users_table.php
     - create_groups_permissions_table.php
+1.0.11:
+    - Fix winter.user version
+1.0.12:
+    - Bugfix USer model save
+1.0.20:
+    - Reorganizing translations

@@ -1,22 +1,24 @@
 fields:
     label:
-        label: sunlab.permissions::lang.permission.fields.label
+        label: sunlab.permissions::lang.models.permission.label
+        comment: sunlab.permissions::lang.models.permission.label_comment
         span: left
 
     code:
-        label: sunlab.permissions::lang.permission.fields.code
+        label: sunlab.permissions::lang.models.permission.code
+        comment: sunlab.permissions::lang.models.permission.code_comment
         span: right
-        preset:
-            field: name
+        preset: label
 
     tab:
-        label: sunlab.permissions::lang.permission.fields.tab
+        label: sunlab.permissions::lang.models.permission.tab
+        comment: sunlab.permissions::lang.models.permission.tab_comment
         span: left
         type: dropdown
         allowCustom: true
 
     comment:
-        label: sunlab.permissions::lang.permission.fields.comment
+        label: sunlab.permissions::lang.models.permission.comment
         type: textarea
         span: right
         size: tiny

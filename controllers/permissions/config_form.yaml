@@ -2,21 +2,21 @@
 #  Form Behavior Config
 # ===================================
 
-name: sunlab.permissions::lang.permissions.menu_label
+name: sunlab.permissions::lang.models.permission.label
 form: $/sunlab/permissions/models/permission/fields.yaml
 modelClass: SunLab\Permissions\Models\Permission
 
 create:
-    title: sunlab.permissions::lang.permissions.create_permission
+    title: sunlab.permissions::lang.controllers.permissions.create_title
     redirect: sunlab/permissions/permissions/update/:id
     redirectClose: sunlab/permissions/permissions
 
 update:
-    title: sunlab.permissions::lang.permissions.update_permission
+    title: sunlab.permissions::lang.controllers.permissions.update_title
     redirect: sunlab/permissions/permissions/update/:id
     redirectClose: sunlab/permissions/permissions
 
 preview:
-    title: sunlab.permissions::lang.permissions.view_permission
+    title: sunlab.permissions::lang.controllers.permissions.preview_title
 
 defaultRedirect: sunlab/permissions/permissions
